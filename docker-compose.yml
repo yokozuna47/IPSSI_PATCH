@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  nginx:
+    build: ./nginx
+    container_name: ipssi_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/htpasswd:/etc/nginx/htpasswd:ro
+      - uploads_data:/var/www/uploads:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - frontend_network
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: ipssi_backend
+    expose:
+      - "8000"
+    environment:
+      - NODE_ENV=production
+      - PORT=8000
+      - DATABASE_URL=postgresql://ipssi_user:${DB_PASSWORD}@postgres:5432/ipssi_db
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET}
+      - CSRF_SECRET=${CSRF_SECRET:-${JWT_SECRET}}
+      - COOKIE_SECRET=${COOKIE_SECRET}
+      - COOKIE_SECURE=${COOKIE_SECURE:-false}
+      - COOKIE_SAMESITE=${COOKIE_SAMESITE:-lax}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost}
+      - UPLOAD_DIR=/app/uploads/temp
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - frontend_network
+      - backend_network
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+
+  frontend:
+    build: ./frontend
+    container_name: ipssi_frontend
+    expose:
+      - "3000"
+    networks:
+      - frontend_network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ipssi_postgres
+    expose:
+      - "5432"
+    environment:
+      - POSTGRES_USER=ipssi_user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=ipssi_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ipssi_redis
+    expose:
+      - "6379"
+    command: redis-server --appendonly yes --maxmemory 128mb
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend_network
+    restart: unless-stopped
+
+networks:
+  frontend_network:
+    driver: bridge
+  backend_network:
+    driver: bridge
+    internal: true
+
+volumes:
+  postgres_data:
+  redis_data:
+  uploads_data:

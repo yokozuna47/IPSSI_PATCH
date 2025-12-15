@@ -1,0 +1,39 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; color: #eee; }
+.loading { display: flex; justify-content: center; align-items: center; height: 100vh; font-size: 1.5rem; }
+.auth-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+.auth-box { background: #16213e; padding: 2rem; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+.auth-box h2 { text-align: center; margin-bottom: 1.5rem; color: #61dafb; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+.form-group input, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #333; border-radius: 8px; background: #0f0f1a; color: #fff; font-size: 1rem; }
+.form-group input:focus { border-color: #61dafb; outline: none; }
+.btn-primary { width: 100%; padding: 12px; background: #61dafb; color: #000; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 1rem; }
+.btn-primary:hover { background: #4fc3f7; }
+.btn-primary:disabled { background: #666; cursor: not-allowed; }
+.error-message { background: #ff4444; color: white; padding: 10px; border-radius: 8px; margin-bottom: 1rem; }
+.auth-switch { text-align: center; margin-top: 1rem; }
+.link-button { background: none; border: none; color: #61dafb; cursor: pointer; text-decoration: underline; }
+.password-strength { font-size: 0.8rem; margin-top: 5px; }
+.strength-0, .strength-1 { color: #ff4444; }
+.strength-2, .strength-3 { color: #ffbb33; }
+.strength-4, .strength-5, .strength-6 { color: #00C851; }
+.dashboard { min-height: 100vh; }
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: #16213e; border-bottom: 2px solid #333; }
+.dashboard-header h1 { font-size: 1.5rem; color: #61dafb; }
+.user-info { display: flex; align-items: center; gap: 1rem; }
+.btn-logout { padding: 8px 16px; background: #ff4444; color: white; border: none; border-radius: 6px; cursor: pointer; }
+.dashboard-content { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+.section { background: #16213e; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; }
+.section h2 { color: #61dafb; margin-bottom: 1rem; }
+.users-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+.user-card { background: #0f0f1a; padding: 1rem; border-radius: 8px; display: flex; flex-direction: column; gap: 5px; }
+.role-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; width: fit-content; }
+.role-user { background: #333; }
+.role-admin { background: #4CAF50; color: white; }
+.comment-form { margin-bottom: 1.5rem; }
+.comment-form textarea { width: 100%; padding: 12px; border: 2px solid #333; border-radius: 8px; background: #0f0f1a; color: #fff; min-height: 100px; resize: vertical; margin-bottom: 10px; }
+.comments-list { display: flex; flex-direction: column; gap: 1rem; }
+.comment-card { background: #0f0f1a; padding: 1rem; border-radius: 8px; border-left: 3px solid #61dafb; }
+.comment-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; color: #888; }
+.dashboard-footer { text-align: center; padding: 2rem; color: #666; }
