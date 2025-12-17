@@ -48,6 +48,25 @@ Ce projet transforme une application web vulnérable en **application sécurisé
 | 13 | **Path Traversal** | Sanitization des chemins + confinement uploads | `middlewares/lfiProtection.js` |
 | 14 | **HTML Injection / XSS** | Helmet CSP + DOMPurify + escaping | `middlewares/security.js` |
 
+---
+
+ #	Vulnérabilité	        OWASP (2021)	MITRE ID	Technique MITRE	                    Protection Implémentée	        Preuve Technique
+ 
+ 1|	Admin Brute Force	    A07	            T1110	    Brute Force	                        Rate limit + lockout Redis	    rateLimiter.js
+ 2|	Vol de credentials	    A02	            T1552	    Unsecured Credentials	            Argon2id (memory-hard)	        utils/argon2.js
+ 3|	SQL Injection	        A03	            T1190	    Exploit Public-Facing App	        ORM Sequelize (Paramétrage)	    models/*.js
+ 4|	XSS (Stocké/Réfléchi)	A03	            T1189	    Drive-by Compromise	                CSP + DOMPurify	                security.js
+ 5|	IDOR	                A01	            T1548	    Abuse Elevation Control	            Ownership Check + RBAC	        auth.js
+ 6|	Upload WebShell	        A08	            T1505.003	Web Shell	                        Magic bytes + MIME réel	        uploadSecurity.js
+ 7|	Path Traversal / LFI	A05	            T1190	    Exploit Public-Facing App	        Path sanitize + chroot	        lfiProtection.js
+ 8|	Header spoofing	        A01	            T1036	    Masquerading	                    UA / Referer    filter	        headersSecurity.js
+ 9|	CSRF	                A01	            T1553.005	Subvert Trust Controls	            CSRF Token + SameSite Cookies	csrf.js
+10|	Énumération users	    A01	            T1087	    Account Discovery	                Authentification obligatoire	auth.js
+11|	Open Redirect	        A10	            T1204.001	User Execution: Malicious Link	    URL Whitelist	                redirectValidator.js
+12|	DoS applicatif	        A07	            T1499	    Endpoint DoS	                    Rate limit global	            rateLimiter.js
+13|	Log tampering	        A09	            T1070	    Indicator Removal on Host	        Logs centralisés / Read-only	logger.js
+14|	Data exfiltration	    A10	            T1567	    Exfiltration Over Web Service	    CSP + CORS strict	            security.js
+
 
 ---
 
