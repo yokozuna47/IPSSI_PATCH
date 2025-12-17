@@ -62,12 +62,14 @@ Ce projet transforme une application web vulnérable en **application sécurisé
 | 6  | Upload WebShell            | A08          | T1505.003  | Web Shell                                | Magic bytes + MIME réel              | uploadSecurity.js       |
 | 7  | Path Traversal / LFI       | A05          | T1190      | Exploit Public-Facing Application        | Path sanitize + chroot               | lfiProtection.js        |
 | 8  | Header spoofing            | A01          | T1036      | Masquerading                             | UA / Referer filter                  | headersSecurity.js      |
-| 9  | CSRF                       | A01          | T1553.005  | Subvert Trust Controls                   | CSRF token + SameSite cookies        | csrf.js                 |
+| 9  | CSRF                       | A01          | T1539      | Steal Web Session Cookie                 | CSRF token + SameSite cookies        | csrf.js                 |
 | 10 | Énumération utilisateurs   | A01          | T1087      | Account Discovery                        | Authentification obligatoire         | auth.js                 |
 | 11 | Open Redirect              | A10          | T1204.001  | User Execution: Malicious Link           | URL whitelist                        | redirectValidator.js    |
 | 12 | DoS applicatif             | A07          | T1499      | Endpoint Denial of Service               | Rate limit global                    | rateLimiter.js          |
 | 13 | Log tampering              | A09          | T1070      | Indicator Removal on Host                | Logs centralisés / FS read-only      | logger.js               |
 | 14 | Data exfiltration          | A10          | T1567      | Exfiltration Over Web Service            | CSP + CORS strict                    | security.js             |
+
+Pour CSRF, bien qu’il n’existe pas de sous-technique dédiée dans MITRE ATT&CK Enterprise, l’attaque est mappée à T1539 (Steal Web Session Cookie) car elle exploite l’envoi automatique de cookies pour réaliser des actions non autorisées.
 
 
 ---
